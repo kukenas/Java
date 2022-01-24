@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dematic.exceptions.BookNotFoundException;
 import com.dematic.model.Book;
 import com.dematic.service.BookService;
 import com.dematic.utils.JsonUtil;
-
-import Exceptions.BookNotFoundException;
 
 /**
  * Main Book RestController, handling defined points

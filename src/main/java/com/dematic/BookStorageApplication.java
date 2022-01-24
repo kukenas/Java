@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import Exceptions.CustomController;
+import com.dematic.exceptions.CustomController;
 
 /**
  * Entry point of the Application

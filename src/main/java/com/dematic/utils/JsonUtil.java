@@ -63,4 +63,12 @@ public class JsonUtil {
 		}
 	}
 
+	public static void constructJson(JSONObject jobj, String string) {
+		String[] s = string.split(",");
+		for (String str : s) {
+			String[] tmp = str.split(":");
+			jobj.put(tmp[0], tmp[1]);
+		}
+	}
+
 }

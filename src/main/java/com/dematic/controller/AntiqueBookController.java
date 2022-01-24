@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dematic.exceptions.AntiqueBookNotFoundException;
 import com.dematic.model.AntiqueBook;
 import com.dematic.model.Book;
 import com.dematic.service.BookService;
 import com.dematic.utils.JsonUtil;
-
-import Exceptions.AntiqueBookNotFoundException;
 
 /**
  * Separate Controller to handle AntiqueBook specific requests

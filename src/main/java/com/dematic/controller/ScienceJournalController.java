@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dematic.exceptions.ScienceJournalNotFoundException;
 import com.dematic.model.Book;
 import com.dematic.model.ScienceJournal;
 import com.dematic.service.BookService;
 import com.dematic.utils.JsonUtil;
-
-import Exceptions.ScienceJournalNotFoundException;
 
 /**
  * Separate Controller to handle ScienceJournal specific requests

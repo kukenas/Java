@@ -1,4 +1,4 @@
-package Exceptions;
+package com.dematic.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,7 +23,7 @@ public class BookNotFoundException extends RuntimeException {
 	 * Constructor calling superclass constructor by provided Barcode argument
 	 * @param barcode
 	 */
-	public BookNotFoundException(Long barcode) {
+	public BookNotFoundException(long barcode) {
 		super("Not able to find Book with barcode " + barcode);
 	}
 
