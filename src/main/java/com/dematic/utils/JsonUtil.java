@@ -7,6 +7,12 @@ import com.dematic.model.Book;
 import com.dematic.model.Book.Builder;
 import com.dematic.model.ScienceJournal;
 
+/**
+ * Utility Class for Json manipulation
+ * 
+ * @author Aurimas
+ *
+ */
 public class JsonUtil {
 
 	// Utility class, no need to instantiate
@@ -14,6 +20,14 @@ public class JsonUtil {
 
 	}
 
+	/**
+	 * Used to validate Request and fields updated
+	 * 
+	 * @param barcode
+	 * @param params
+	 * @param book
+	 * @return Book
+	 */
 	public static Book getCopyOfBook(long barcode, String params, Book book) {
 		Book.Builder builder = new Book.Builder(barcode).name(book.getName()).author(book.getAuthor())
 				.quantity(book.getQuantity()).price(book.getPrice());
@@ -24,6 +38,15 @@ public class JsonUtil {
 		}
 		return builder.build();
 	}
+
+	/**
+	 * Used to validate Request and fields updated. Additional Field Release is used
+	 * 
+	 * @param barcode
+	 * @param params
+	 * @param book
+	 * @return Book
+	 */
 
 	public static Book getCopyOfAntiqueBook(long barcode, String params, AntiqueBook book) {
 		AntiqueBook.Builder builder = (AntiqueBook.Builder) new AntiqueBook.Builder(barcode).release(book.getRelease())
@@ -36,6 +59,14 @@ public class JsonUtil {
 		return builder.build();
 	}
 
+	/**
+	 * Used to validate Request and fields updated. Additional Field Release is used
+	 * 
+	 * @param barcode
+	 * @param params
+	 * @param book
+	 * @return Book
+	 */
 	public static Book getCopyOfScienceJournal(long barcode, String params, ScienceJournal book) {
 		ScienceJournal.Builder builder = (ScienceJournal.Builder) new ScienceJournal.Builder(barcode)
 				.index(book.getIndex()).name(book.getName()).author(book.getAuthor()).quantity(book.getQuantity())
@@ -48,6 +79,13 @@ public class JsonUtil {
 		return builder.build();
 	}
 
+	/**
+	 * Method used to validate common fields
+	 * 
+	 * @param builder
+	 * @param jobj
+	 * @param book
+	 */
 	private static void updateCommon(Builder builder, JSONObject jobj, Book book) {
 		if (jobj.has("author") && book.getAuthor() != jobj.getString("author")) {
 			builder.author(jobj.getString("author"));
@@ -63,6 +101,13 @@ public class JsonUtil {
 		}
 	}
 
+	/**
+	 * Constructs JSONString out of String. It is only used with String objects
+	 * containing comma and colons to be split by
+	 * 
+	 * @param jobj
+	 * @param string
+	 */
 	public static void constructJson(JSONObject jobj, String string) {
 		String[] s = string.split(",");
 		for (String str : s) {

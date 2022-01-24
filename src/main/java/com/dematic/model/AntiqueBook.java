@@ -5,21 +5,32 @@ import javax.persistence.Entity;
 
 import com.dematic.validators.Year;
 
+/**
+ * AntiqueBook with Release Date Field
+ * @author Aurimas
+ *
+ */
 @Entity(name = "antiqueBook")
 public class AntiqueBook extends Book {
 
 	@Column(name = "release")
 	@Year(max = 1900)
 	private int release; // required
-
-	public AntiqueBook() {
+	
+	// Default Constructor, required by Spring
+	public AntiqueBook() {		
 	}
-
+	
 	AntiqueBook(Builder builder) {
 		super(builder);
 		this.release = builder.release;
 	}
-
+	
+	/**
+	 * Inner Builder Class extending Book Builder
+	 * @author Aurimas
+	 *
+	 */
 	public static class Builder extends Book.Builder {
 
 		private int release;

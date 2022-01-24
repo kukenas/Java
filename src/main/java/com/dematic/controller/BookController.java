@@ -70,10 +70,12 @@ public class BookController {
 		return ResponseEntity.ok(bookService.saveBook(JsonUtil.getCopyOfBook(barcode, params, thisBook)));
 	}
 
+	/*
+	 * Generic DELETE method applicable to all Books
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	@ResponseBody
-	ResponseEntity<String> deleteBook(@RequestParam(value = "barcode") long barcode)
-			throws BookNotFoundException {
+	ResponseEntity<String> deleteBook(@RequestParam(value = "barcode") long barcode) throws BookNotFoundException {
 		Book thisBook = bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
 		bookService.deleteBook(barcode);
 		return ResponseEntity.ok("Book with Barcode " + thisBook.getBarcode() + " was deleted");
@@ -81,8 +83,8 @@ public class BookController {
 
 	@RequestMapping(value = "/calculate", params = "barcode", method = RequestMethod.GET)
 	ResponseEntity<String> calculateTotalPrice(@RequestParam(value = "barcode") long barcode) {
-		return ResponseEntity.ok(
-				new JSONObject("{\"total_price\":\"" + bookService.calculateTotalPrice(barcode) + "\"}").toString());
+		return ResponseEntity
+				.ok(new JSONObject().put("total_price", bookService.calculateTotalPrice(barcode)).toString());
 	}
 
 	@RequestMapping(value = "/barcodes", method = RequestMethod.GET)
@@ -103,9 +105,11 @@ public class BookController {
 		List<Book> books = bookService.getBooks();
 		Collections.sort(books, new Comparator<Book>() {
 			@Override
-			public int compare(Book a1, Book a2) {
-				double totalPrice1 = bookService.calculateTotalPrice(a1.getBarcode());
-				double totalPrice2 = bookService.calculateTotalPrice(a2.getBarcode());
+			public int compare(Book book1, Book book2) {
+
+				double totalPrice1 = bookService.calculateTotalPrice(book1.getBarcode());
+				double totalPrice2 = bookService.calculateTotalPrice(book2.getBarcode());
+
 				return Double.valueOf(totalPrice1).compareTo(Double.valueOf(totalPrice2));
 			}
 		});

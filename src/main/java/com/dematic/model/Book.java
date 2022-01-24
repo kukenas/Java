@@ -4,6 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Main Book Class
+ * @author Aurimas
+ *
+ */
 @Entity(name = "book")
 public class Book {
 
@@ -18,10 +23,12 @@ public class Book {
 	private int quantity; // optional
 	@Column(name = "price")
 	private double price; // optional
-
-	public Book() {
+	
+	// Default Constructor, required by Spring
+	public Book () {
+		
 	}
-
+	
 	// Immutable
 	Book(Builder builder) {
 		this.barcode = builder.barcode;
@@ -31,6 +38,11 @@ public class Book {
 		this.price = builder.price;
 	}
 
+	/**
+	 * Inner Builder Class
+	 * @author Aurimas
+	 *
+	 */
 	public static class Builder {
 
 		private long barcode;

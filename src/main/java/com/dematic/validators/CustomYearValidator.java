@@ -3,6 +3,11 @@ package com.dematic.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Custom Year Validator to define MAX Release Date
+ * @author Aurimas
+ *
+ */
 public class CustomYearValidator implements ConstraintValidator<Year, Integer> {
 
 	private int max;

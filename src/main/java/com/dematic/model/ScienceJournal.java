@@ -5,21 +5,32 @@ import javax.persistence.Entity;
 
 import com.dematic.validators.IndexValue;
 
+/**
+ * ScienceJournal with Index Field
+ * @author Aurimas
+ *
+ */
 @Entity(name = "scienceJournal")
 public class ScienceJournal extends Book {
 
 	@Column(name = "index")
 	@IndexValue(min = 1, max = 10)
 	private int index;
-
+	
+	// Default Constructor, required by Spring
 	public ScienceJournal() {
 	}
-
+	
 	protected ScienceJournal(Builder builder) {
 		super(builder);
 		this.index = builder.index;
 	}
 
+	/**
+	 * Inner Builder Class extending Book Builder
+	 * @author Aurimas
+	 *
+	 */
 	public static class Builder extends Book.Builder {
 
 		private int index;

@@ -3,6 +3,12 @@ package com.dematic.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Custom Index Validator to define MIN and MAX values
+ * 
+ * @author Aurimas
+ *
+ */
 public class CustomIndexValidator implements ConstraintValidator<IndexValue, Integer> {
 
 	private int min;

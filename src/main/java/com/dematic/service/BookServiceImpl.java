@@ -12,6 +12,12 @@ import com.dematic.model.BookType;
 import com.dematic.model.ScienceJournal;
 import com.dematic.persistence.BookRepository;
 
+/**
+ * Main Class to provide Database Services
+ * 
+ * @author Aurimas
+ *
+ */
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -32,14 +38,19 @@ public class BookServiceImpl implements BookService {
 	public Book saveBook(Book book) {
 		return repository.save(book);
 	}
-	
+
+	/**
+	 * Used to delete Books from Database
+	 * 
+	 * @param Barcode
+	 */
 	@Override
 	public void deleteBook(long barcode) {
 		repository.deleteById(barcode);
 	}
-	
+
 	/**
-	 * Finds all entities by a given barcode
+	 * Finds all entities by a given Barcode
 	 * 
 	 * @param barcode
 	 * @return the instance of Book for further operations
@@ -48,16 +59,33 @@ public class BookServiceImpl implements BookService {
 		return repository.findBookByBarcode(barcode);
 	}
 
+	/**
+	 * Finds all Books
+	 * 
+	 * @return list of all Books
+	 */
 	@Override
 	public List<Book> getBooks() {
-		return repository.allBooks();
+		return repository.findAllBooks();
 	}
 
+	/**
+	 * Finds all AntiqueBooks
+	 * 
+	 * @return all AntiqueBooks from Database
+	 */
 	@Override
 	public List<AntiqueBook> getAntiqueBooks() {
 		return repository.findAntiqueBooks();
 	}
 
+	/**
+	 * Calculates Total Price of Books with specified Barcode. Total Price is
+	 * calculated differently depending on Book Type
+	 * 
+	 * @param Barcode
+	 * @return calculated total price of Books with specified Barcode
+	 */
 	@Override
 	public double calculateTotalPrice(long barcode) {
 		switch (BookType.getEnum(repository.findBookByBarcode(barcode).get().getClass().getSimpleName())) {
@@ -75,29 +103,54 @@ public class BookServiceImpl implements BookService {
 		return 0.0D;
 	}
 
+	/**
+	 * Returns all ScienceJournals
+	 * 
+	 * @return list of ScienceJournals
+	 */
 	@Override
 	public List<ScienceJournal> getScienceJournals() {
 		return repository.findScienceJournals();
 	}
 
+	/**
+	 * Finds ScienceJournal by its Barcode
+	 * 
+	 * @return ScienceJournal
+	 */
 	@Override
 	public Optional<ScienceJournal> getScienceByBarcode(long barcode) {
 		return repository.findScienceByBarcode(barcode);
 	}
 
+	/**
+	 * Finds ScienceJournal by its Index
+	 * 
+	 * @return ScienceJournal
+	 */
 	@Override
 	public Optional<ScienceJournal> getScienceByIndex(int index) {
 		return repository.findScienceByIndex(index);
 	}
 
+	/**
+	 * Finds AntiqueBook by its Barcode
+	 * 
+	 * @return AntiqueBook
+	 */
 	@Override
 	public Optional<AntiqueBook> getAntiqueByBarcode(long barcode) {
 		return repository.findAntiqueByBarcode(barcode);
 	}
 
+	/**
+	 * Finds AntiqueBook by its Release Date
+	 * 
+	 * @return AntiqueBook
+	 */
 	@Override
 	public Optional<AntiqueBook> getAntiqueByRelease(int release) {
 		return repository.findAntiqueByRelease(release);
 	}
-	
+
 }

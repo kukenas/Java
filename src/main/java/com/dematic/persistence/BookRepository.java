@@ -28,7 +28,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	Optional<ScienceJournal> findScienceByIndex(@Param("index") int index);
 
 	@Query("SELECT b FROM book b")
-	List<Book> allBooks();
+	List<Book> findAllBooks();
 
 	@Query("SELECT b FROM book b WHERE REPLACE(b.name,' ','') = ?1")
 	Optional<Book> findByName(@Param("name") String name);
@@ -42,6 +42,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	@Query("SELECT b FROM antiqueBook b WHERE b.release = ?1")
 	Optional<AntiqueBook> findAntiqueByRelease(@Param("release") int release);
 
+	// Used different method to achieve this
 	@Query("SELECT b FROM book b GROUP BY b.barcode, b.price ORDER BY price DESC")
-	List<Book> getBarcodesGrouped();
+	List<Book> findBarcodesGrouped();
 }

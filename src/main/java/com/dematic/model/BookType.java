@@ -1,5 +1,10 @@
 package com.dematic.model;
 
+/**
+ * Enum to define different type of Books
+ * @author Aurimas
+ *
+ */
 public enum BookType {
 
 	BOOK("Book") {
@@ -25,13 +30,22 @@ public enum BookType {
 
 	private String type;
 
+	/**
+	 * Set BookType from String
+	 * @param type
+	 */
 	BookType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return BookType as String
+	 */
 	public String getType() {
 		return type;
 	}
+	
 	/**
 	 * Use this method as it is not allowed to override valueOf
 	 * @param type

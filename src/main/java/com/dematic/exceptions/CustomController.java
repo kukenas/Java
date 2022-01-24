@@ -101,4 +101,15 @@ public class CustomController extends ResponseEntityExceptionHandler {
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return handleExceptionInternal(ex, jobj.toString(), httpHeaders, HttpStatus.BAD_REQUEST, request);
 	}
+
+	// Ideally, Exception should be more specific
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = org.json.JSONException.class)
+	public ResponseEntity<Object> handleException(Exception ex) {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return handleExceptionInternal(ex, new JSONObject().put(ERROR, "Incorrect JSONString received").toString(),
+				httpHeaders, HttpStatus.BAD_REQUEST, null);
+	}
+
 }
