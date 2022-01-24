@@ -39,8 +39,8 @@ public class BookServiceImpl implements BookService {
 	 * @param barcode
 	 * @return the instance of Book for further operations
 	 */
-	public Optional<Book> findByBarcode(long barcode) {
-		return repository.findByBarcode(barcode);
+	public Optional<Book> getBookByBarcode(long barcode) {
+		return repository.findBookByBarcode(barcode);
 	}
 
 	@Override
@@ -55,9 +55,9 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public double calculateTotalPrice(long barcode) {
-		switch (BookType.getEnum(repository.findByBarcode(barcode).get().getClass().getSimpleName())) {
+		switch (BookType.getEnum(repository.findBookByBarcode(barcode).get().getClass().getSimpleName())) {
 		case BOOK:
-			Book book = repository.findByBarcode(barcode).get();
+			Book book = repository.findBookByBarcode(barcode).get();
 			return book.getQuantity() * (double) book.getPrice();
 		case ANTIQUE_BOOK:
 			AntiqueBook bookAntique = repository.findByBarcodeAntique(barcode).get();
@@ -83,6 +83,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Optional<ScienceJournal> findByBarcodeScience(long barcode) {
 		return repository.findByBarcodeScience(barcode);
+	}
+
+	@Override
+	public Optional<AntiqueBook> getAntiqueByBarcode(long barcode) {
+		return repository.findAntiqueByBarcode(barcode);
 	}
 
 }

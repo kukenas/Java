@@ -12,8 +12,10 @@ public interface BookService {
 	Book saveBook(Book book);
 
 	double calculateTotalPrice(long barcode);
-	
-	Optional<Book> findByBarcode(long id);
+
+	Optional<Book> getBookByBarcode(long id);
+
+	Optional<AntiqueBook> getAntiqueByBarcode(long id);
 
 	List<Book> getBooks();
 

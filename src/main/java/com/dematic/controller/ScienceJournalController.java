@@ -18,7 +18,7 @@ public class ScienceJournalController {
 	private BookService bookService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	List<ScienceJournal> findScienceJournals() {
+	List<ScienceJournal> getScienceJournals() {
 		return bookService.getScienceJournals();
 	}
 

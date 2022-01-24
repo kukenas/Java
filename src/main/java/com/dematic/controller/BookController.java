@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import com.dematic.service.BookService;
 import com.dematic.utils.JsonUtil;
 
 import Exceptions.BookNotFoundException;
-import Exceptions.NoBooksFoundException;
 
 @RestController
 @RequestMapping("/books")
@@ -31,12 +31,12 @@ public class BookController {
 	private BookService bookService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	List<Book> findBooks() {
+	ResponseEntity<List<Book>> getBooks() {
 		List<Book> books = bookService.getBooks();
 		if (books.isEmpty()) {
-			throw new NoBooksFoundException("Book Store is Empty!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(books);
 		}
-		return books;
+		return ResponseEntity.ok(books);
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class BookController {
 	 * @return Book
 	 */
 	@RequestMapping(params = "barcode", method = RequestMethod.GET)
-	Book findByBarcode(@RequestParam(value = "barcode") long barcode) {
-		return bookService.findByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
+	Book getByBarcode(@RequestParam(value = "barcode") long barcode) {
+		return bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -71,7 +71,7 @@ public class BookController {
 	@ResponseBody
 	ResponseEntity<Book> updateEmployee(@RequestParam(value = "barcode") long barcode, @RequestBody String params)
 			throws BookNotFoundException {
-		Book thisBook = bookService.findByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
+		Book thisBook = bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
 		return ResponseEntity.ok(bookService.saveBook(JsonUtil.getCopyOfBook(barcode, params, thisBook)));
 	}
 

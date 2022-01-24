@@ -8,12 +8,13 @@ public class BookNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 6601811884227591945L;
 
+	// Default Constructor
+	public BookNotFoundException() {
+		super();
+	}
+	
 	public BookNotFoundException(Long barcode) {
 		super("Not able to find Book with barcode " + barcode);
-	}
-
-	public BookNotFoundException(String name) {
-		super("Not able to find Book with a name of " + name);
 	}
 
 }

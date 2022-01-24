@@ -14,13 +14,16 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
 	@Query("SELECT b FROM antiqueBook b")
 	List<AntiqueBook> findAntiqueBooks();
-	
+
+	@Query("SELECT b FROM antiqueBook b WHERE b.barcode = ?1")
+	Optional <AntiqueBook> findAntiqueByBarcode(@Param("barcode") long barcode);
+
 	@Query("SELECT b FROM scienceJournal b")
 	List<ScienceJournal> findScienceJournals();
-	
+
 	@Query("SELECT b FROM scienceJournal b WHERE b.barcode = ?1")
 	Optional<ScienceJournal> findByBarcodeScience(@Param("barcode") long barcode);
-	
+
 	@Query("SELECT b FROM book b")
 	List<Book> allBooks();
 
@@ -28,11 +31,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	Optional<Book> findByName(@Param("name") String name);
 
 	@Query("SELECT b FROM book b WHERE b.barcode = ?1")
-	Optional<Book> findByBarcode(@Param("barcode") long barcode);
-	
+	Optional<Book> findBookByBarcode(@Param("barcode") long barcode);
+
 	@Query("SELECT b FROM antiqueBook b WHERE b.barcode = ?1")
 	Optional<AntiqueBook> findByBarcodeAntique(@Param("barcode") long barcode);
-	
+
 	@Query("SELECT b FROM book b GROUP BY b.barcode, b.price ORDER BY price DESC")
 	List<Book> getBarcodesGrouped();
 }
