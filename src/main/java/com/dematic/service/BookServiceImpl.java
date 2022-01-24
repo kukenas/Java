@@ -32,7 +32,7 @@ public class BookServiceImpl implements BookService {
 	public Book saveBook(Book book) {
 		return repository.save(book);
 	}
-
+	
 	/**
 	 * Finds all entities by a given barcode
 	 * 
@@ -69,19 +69,19 @@ public class BookServiceImpl implements BookService {
 		}
 		return 0.0D;
 	}
-	
+
 	@Override
 	public List<ScienceJournal> getScienceJournals() {
 		return repository.findScienceJournals();
 	}
 
 	@Override
-	public Optional<ScienceJournal> getScienceByBarcode (long barcode) {
+	public Optional<ScienceJournal> getScienceByBarcode(long barcode) {
 		return repository.findScienceByBarcode(barcode);
 	}
-	
+
 	@Override
-	public Optional<ScienceJournal> getScienceByIndex (int index) {
+	public Optional<ScienceJournal> getScienceByIndex(int index) {
 		return repository.findScienceByIndex(index);
 	}
 
@@ -89,9 +89,10 @@ public class BookServiceImpl implements BookService {
 	public Optional<AntiqueBook> getAntiqueByBarcode(long barcode) {
 		return repository.findAntiqueByBarcode(barcode);
 	}
+
 	@Override
-	public Optional<AntiqueBook> getAntiqueByRelease (int release) {
+	public Optional<AntiqueBook> getAntiqueByRelease(int release) {
 		return repository.findAntiqueByRelease(release);
 	}
-
+	
 }

@@ -24,9 +24,13 @@ public class AntiqueBook extends Book {
 
 		private int release;
 
-		public Builder(long barcode, int release) {
+		public Builder(long barcode) {
 			super(barcode);
+		}
+
+		public Builder release(int release) {
 			this.release = release;
+			return this;
 		}
 
 		public AntiqueBook build() {

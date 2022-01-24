@@ -10,7 +10,7 @@ import com.dematic.model.ScienceJournal;
 public interface BookService {
 
 	Book saveBook(Book book);
-
+	
 	double calculateTotalPrice(long barcode);
 
 	Optional<Book> getBookByBarcode(long id);

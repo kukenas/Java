@@ -31,29 +31,22 @@ public class CustomController extends ResponseEntityExceptionHandler {
 		super();
 	}
 
-	/**
-	 * Method handles "Not Found" Exceptions
-	 * 
-	 * @param ex
-	 * @param request
-	 * @return ResponseEntity
-	 */
 	@ExceptionHandler({ BookNotFoundException.class, AntiqueBookNotFoundException.class,
 			ScienceJournalNotFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	protected ResponseEntity<Object> handleResourceNotFound(RuntimeException ex, WebRequest request) {
 		LOG.info("Method handleResourceNotFound() initialized by RuntimeException: ", ex);
-		String body = "Requested resource could not be found.";
+		String body = ex.getMessage();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return handleExceptionInternal(ex, body, httpHeaders, HttpStatus.NOT_FOUND, request);
 	}
 
-	@ExceptionHandler(AntiquBookBadRequestException.class)
+	@ExceptionHandler(BadRequestException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	protected ResponseEntity<Object> handleInvalidInput(RuntimeException ex, WebRequest request) {
 		LOG.info("Method handleInvalidInput() initialized by RuntimeException: ", ex);
-		String body = "Request is not in line with API specifications.";
+		String body = ex.getMessage();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return handleExceptionInternal(ex, body, httpHeaders, HttpStatus.NOT_FOUND, request);

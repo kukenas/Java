@@ -21,9 +21,9 @@ public class DatabaseLoader {
 			log.info("Preloading "
 					+ repository.save(new Book.Builder(12345L).name("Harry Potter").author("Lindgren").build()));
 			log.info("Preloading " + repository.save(new Book.Builder(678910L).name("Book").build()));
-			log.info("Preloading " + repository.save(new AntiqueBook.Builder(1777L, 1810).name("Facts").quantity(7).price(7.17).build()));
-			log.info("Preloading " + repository.save(new AntiqueBook.Builder(1715L, 1710).name("Funny").quantity(7).price(10).build()));
-			log.info("Preloading " + repository.save(new ScienceJournal.Builder(10L, 7).name("Science").quantity(70).price(171.7).build()));
+			log.info("Preloading " + repository.save(new AntiqueBook.Builder(1777L).release(1770).name("Facts").quantity(7).price(7.17).build()));
+			log.info("Preloading " + repository.save(new AntiqueBook.Builder(1715L).release(1790).name("Funny").quantity(7).price(10).build()));
+			log.info("Preloading " + repository.save(new ScienceJournal.Builder(10L).index(7).name("Science").quantity(70).price(171.7).build()));
 		};
 	}
 

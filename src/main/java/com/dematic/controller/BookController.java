@@ -23,6 +23,12 @@ import com.dematic.utils.JsonUtil;
 
 import Exceptions.BookNotFoundException;
 
+/**
+ * Main Book RestController, handling defined points
+ * 
+ * @author Aurimas
+ *
+ */
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -38,12 +44,7 @@ public class BookController {
 		}
 		return ResponseEntity.ok(books);
 	}
-
-	/**
-	 * 
-	 * @param barcode
-	 * @return Book
-	 */
+	
 	@RequestMapping(params = "barcode", method = RequestMethod.GET)
 	Book getByBarcode(@RequestParam(value = "barcode") long barcode) {
 		return bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
@@ -57,19 +58,14 @@ public class BookController {
 				.saveBook(new Book.Builder(barcode).name(name).author(author).quantity(quantity).price(price).build()));
 	}
 
-	/**
+	/*
 	 * The method updates only the fields passed with the ResponseBody Due to
 	 * privacy reasons fields are validated at JSONObject instead of copying all
 	 * fields at once
-	 * 
-	 * @param barcode
-	 * @param JSONString
-	 * @return Updated ResponseEntity
-	 * @throws BookNotFoundException
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	@ResponseBody
-	ResponseEntity<Book> updateEmployee(@RequestParam(value = "barcode") long barcode, @RequestBody String params)
+	ResponseEntity<Book> updateBook (@RequestParam(value = "barcode") long barcode, @RequestBody String params)
 			throws BookNotFoundException {
 		Book thisBook = bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
 		return ResponseEntity.ok(bookService.saveBook(JsonUtil.getCopyOfBook(barcode, params, thisBook)));

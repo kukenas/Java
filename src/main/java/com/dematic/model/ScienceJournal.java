@@ -24,9 +24,13 @@ public class ScienceJournal extends Book {
 
 		private int index;
 
-		public Builder(long barcode, int index) {
+		public Builder(long barcode) {
 			super(barcode);
+		}
+
+		public Builder index(int index) {
 			this.index = index;
+			return this;
 		}
 
 		public ScienceJournal build() {
