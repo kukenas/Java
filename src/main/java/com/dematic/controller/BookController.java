@@ -44,7 +44,7 @@ public class BookController {
 		}
 		return ResponseEntity.ok(books);
 	}
-	
+
 	@RequestMapping(params = "barcode", method = RequestMethod.GET)
 	Book getByBarcode(@RequestParam(value = "barcode") long barcode) {
 		return bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
@@ -65,10 +65,19 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	@ResponseBody
-	ResponseEntity<Book> updateBook (@RequestParam(value = "barcode") long barcode, @RequestBody String params)
+	ResponseEntity<Book> updateBook(@RequestParam(value = "barcode") long barcode, @RequestBody String params)
 			throws BookNotFoundException {
 		Book thisBook = bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
 		return ResponseEntity.ok(bookService.saveBook(JsonUtil.getCopyOfBook(barcode, params, thisBook)));
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@ResponseBody
+	ResponseEntity<String> deleteBook(@RequestParam(value = "barcode") long barcode)
+			throws BookNotFoundException {
+		Book thisBook = bookService.getBookByBarcode(barcode).orElseThrow(() -> new BookNotFoundException(barcode));
+		bookService.deleteBook(barcode);
+		return ResponseEntity.ok("Book with Barcode " + thisBook.getBarcode() + " was deleted");
 	}
 
 	@RequestMapping(value = "/calculate", params = "barcode", method = RequestMethod.GET)

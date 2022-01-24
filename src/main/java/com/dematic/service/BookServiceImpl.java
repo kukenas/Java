@@ -33,6 +33,11 @@ public class BookServiceImpl implements BookService {
 		return repository.save(book);
 	}
 	
+	@Override
+	public void deleteBook(long barcode) {
+		repository.deleteById(barcode);
+	}
+	
 	/**
 	 * Finds all entities by a given barcode
 	 * 

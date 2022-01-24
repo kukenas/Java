@@ -1,5 +1,10 @@
 package Exceptions;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import javax.validation.ConstraintViolationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -50,5 +55,18 @@ public class CustomController extends ResponseEntityExceptionHandler {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return handleExceptionInternal(ex, body, httpHeaders, HttpStatus.NOT_FOUND, request);
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(ConstraintViolationException.class)
+	protected ResponseEntity<Object> handleViolatedConstraint(RuntimeException ex, WebRequest request) {
+		LOG.error("Method handleViolatedConstraint() initialized by ConstraintViolationException: ", ex);
+		StringWriter sw = new StringWriter();
+		ex.printStackTrace(new PrintWriter(sw));
+		String error = sw.toString();
+		String body = error.substring(error.indexOf("{"), error.indexOf("}\'}")+3);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return handleExceptionInternal(ex, body, httpHeaders, HttpStatus.BAD_REQUEST, request);
 	}
 }
