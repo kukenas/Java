@@ -21,9 +21,11 @@ public interface BookService {
 
 	List<AntiqueBook> getAntiqueBooks();
 
+	Optional<AntiqueBook> getAntiqueByRelease(int release);
+
 	List<ScienceJournal> getScienceJournals();
 
-	Optional<AntiqueBook> findByBarcodeAntique(long barcode);
+	Optional<ScienceJournal> getScienceByBarcode(long barcode);
 
-	Optional<ScienceJournal> findByBarcodeScience(long barcode);
+	Optional<ScienceJournal> getScienceByIndex(int index);
 }

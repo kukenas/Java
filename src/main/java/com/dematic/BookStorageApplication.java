@@ -9,12 +9,17 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import Exceptions.ItemNotFoundAdvice;
+import Exceptions.CustomController;
 
+/**
+ * Entry point of the Application
+ * @author Aurimas
+ *
+ */
 @SpringBootApplication
 @EntityScan("com.dematic.model")
 @EnableJpaRepositories("com.dematic.persistence")
-@Import(ItemNotFoundAdvice.class)
+@Import(CustomController.class)
 public class BookStorageApplication {
 
 	private static final Logger LOG = LogManager.getLogger(BookStorageApplication.class);

@@ -13,10 +13,11 @@ import com.dematic.model.AntiqueBook;
 import com.dematic.model.Book;
 import com.dematic.service.BookService;
 
-import Exceptions.AntiqueBookNotExistException;
+import Exceptions.AntiqueBookNotFoundException;
 
 /**
  * Separate Controller to handle AntiqueBook specific requests
+ * 
  * @author Aurimas
  *
  */
@@ -27,18 +28,23 @@ public class AntiqueBookController {
 	@Autowired
 	private BookService bookService;
 
-	/**
-	 * Method to retrieve all AntiqueBooks
-	 * @return ResponseEntity with Items or Empty JSONArray
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<List<AntiqueBook>> getAntiqueBooks() {
 		return ResponseEntity.ok(bookService.getAntiqueBooks());
 	}
-	
+
 	@RequestMapping(params = "barcode", method = RequestMethod.GET)
-	Book getByBarcode(@RequestParam(value = "barcode") long barcode) {	
-		return bookService.getAntiqueByBarcode(barcode).orElseThrow(() -> new AntiqueBookNotExistException(barcode));
+	ResponseEntity<Book> getByBarcode(@RequestParam(value = "barcode") long barcode) {
+		return ResponseEntity.ok(
+				bookService.getAntiqueByBarcode(barcode).orElseThrow(() -> new AntiqueBookNotFoundException(barcode)));
+
+	}
+
+	@RequestMapping(params = "release", method = RequestMethod.GET)
+	ResponseEntity<Book> getByRelease(@RequestParam(value = "release") int release) {
+		return ResponseEntity.ok(
+				bookService.getAntiqueByRelease(release).orElseThrow(() -> new AntiqueBookNotFoundException(release)));
+
 	}
 
 }

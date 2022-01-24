@@ -64,30 +64,34 @@ public class BookServiceImpl implements BookService {
 			return bookAntique.getQuantity() * bookAntique.getPrice()
 					* ((Calendar.getInstance().get(Calendar.YEAR) - bookAntique.getRelease()) / 10);
 		case SCIENCE_JOURNAL:
-			ScienceJournal scienceJournal = repository.findByBarcodeScience(barcode).get();
+			ScienceJournal scienceJournal = repository.findScienceByBarcode(barcode).get();
 			return scienceJournal.getQuantity() * scienceJournal.getPrice() * scienceJournal.getIndex();
 		}
 		return 0.0D;
 	}
-
-	@Override
-	public Optional<AntiqueBook> findByBarcodeAntique(long barcode) {
-		return repository.findByBarcodeAntique(barcode);
-	}
-
+	
 	@Override
 	public List<ScienceJournal> getScienceJournals() {
 		return repository.findScienceJournals();
 	}
 
 	@Override
-	public Optional<ScienceJournal> findByBarcodeScience(long barcode) {
-		return repository.findByBarcodeScience(barcode);
+	public Optional<ScienceJournal> getScienceByBarcode (long barcode) {
+		return repository.findScienceByBarcode(barcode);
+	}
+	
+	@Override
+	public Optional<ScienceJournal> getScienceByIndex (int index) {
+		return repository.findScienceByIndex(index);
 	}
 
 	@Override
 	public Optional<AntiqueBook> getAntiqueByBarcode(long barcode) {
 		return repository.findAntiqueByBarcode(barcode);
+	}
+	@Override
+	public Optional<AntiqueBook> getAntiqueByRelease (int release) {
+		return repository.findAntiqueByRelease(release);
 	}
 
 }
