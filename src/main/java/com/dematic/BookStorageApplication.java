@@ -11,12 +11,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.dematic.exceptions.CustomController;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+
 /**
  * Entry point of the Application
  * @author Aurimas
  *
  */
 @SpringBootApplication
+@OpenAPIDefinition
 @EntityScan("com.dematic.model")
 @EnableJpaRepositories("com.dematic.persistence")
 @Import(CustomController.class)

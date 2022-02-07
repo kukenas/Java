@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ import com.dematic.exceptions.BookNotFoundException;
 import com.dematic.model.Book;
 import com.dematic.service.BookService;
 import com.dematic.utils.JsonUtil;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 /**
  * Main Book RestController, handling defined points
@@ -35,6 +42,12 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 
+	@Operation(summary = "End Point to fetch all Books stored in H2 Database")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Retrieve all the Books stored in Database", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))),
+			@ApiResponse(responseCode = "400", description = "Book cannot be found in H2 Database", content = @Content(mediaType = "application/json")),
+			@ApiResponse(responseCode = "404", description = "Bad Request", content = @Content(mediaType = "application/json")),
+			@ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(mediaType = "application/json")) })
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<List<Book>> getBooks() {
 		List<Book> books = bookService.getBooks();
